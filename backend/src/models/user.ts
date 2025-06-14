@@ -7,3 +7,5 @@ export interface User {
   telefonos: string[];
   direcciones: string[];
 }
+
+export let users: User[] = []; 
