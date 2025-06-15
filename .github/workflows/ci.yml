@@ -1,0 +1,44 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "fix/**"
+      - "hotfix/**"
+  pull_request:
+    branches:
+      - "develop"
+
+jobs:
+  build-and-test-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Usar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias en /backend
+        run: |
+          cd backend
+          npm install
+
+      - name: Compilar TypeScript
+        run: |
+          cd backend
+          npm run build
+
+      - name: Correr pruebas unitarias
+        run: |
+          cd backend
+          npm run test:unit
+
+      - name: Correr pruebas de integración
+        run: |
+          cd backend
+          npm run test:integration
