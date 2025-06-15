@@ -11,34 +11,64 @@ on:
       - "develop"
 
 jobs:
-  build-and-test-backend:
+  build:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: backend
     steps:
-      - name: Checkout código
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Usar Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Instalar dependencias en /backend
-        run: |
-          cd backend
-          npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Compilar TypeScript
-        run: |
-          cd backend
-          npm run build
+      - name: Build backend
+        run: npm run build
 
-      - name: Correr pruebas unitarias
-        run: |
-          cd backend
-          npm run test:unit
+  test-unit:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Correr pruebas de integración
-        run: |
-          cd backend
-          npm run test:integration
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+  test-integration:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run integration tests
+        run: npm run test:integration
