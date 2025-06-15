@@ -1,1 +1,8 @@
 Documentacion/*
+
+/backend/node_modules/
+/backend/dist/
+/backend/build/
+/backend/.env
+/backend/*.log
+/backend/coverage/
