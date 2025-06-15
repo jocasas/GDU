@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getUsers,createUser,getUserByRut,updateUser,deleteUser } from '../src/controllers/userController';
-import { users } from '../src/models/user';
+import { getUsers,createUser,getUserByRut,updateUser,deleteUser } from '../../controllers/userController';
+import { users } from '../../models/user';
 
 // #01
 describe('User Controller', () => {
@@ -11,13 +11,10 @@ describe('User Controller', () => {
       json: jest.fn(),
     } as unknown as Response; // ??? Agregar unknown a los res porque son mock y ts manda alerta por no ser una implementacion completa y nosotros solo queremos hacer mock de response
 
-    // Ensure that our in-memory store is empty
-    users.length = 0;
-
-    // Execute our controller function
+    users.length = 0; // Asegurar in-memory store como vacio
     getUsers(req, res, jest.fn());
 
-    // Expect that res.json was called with an empty array
+    // Expect res.json sea un -> empty array
     expect(res.json).toHaveBeenCalledWith([]);
   });
 });
@@ -25,7 +22,7 @@ describe('User Controller', () => {
 // #02 Crear y Comprobar que no se puede pisar uno ya existente
 describe('createUser', () => {
   it('should add a new user and return it', () => {
-    users.length = 0; // Reset store
+    users.length = 0; // Reset in-memory store
     const req = {
       body: {
         rut: '12345678-9',
@@ -67,8 +64,10 @@ describe('createUser', () => {
   });
 });
 
-// #03
+// #03 Conseguir un usuario en especifico
 describe('getUserByRut', () => {
+
+  // Devuelve un usuario por rut
   it('should return user by RUT', () => {
     const req = {
       params: { rut: users[0].rut }
@@ -83,6 +82,7 @@ describe('getUserByRut', () => {
     expect(res.json).toHaveBeenCalledWith(users[0]);
   });
 
+  // Debe devolver not found si no existe
   it('should return 404 if user not found', () => {
     const req = {
       params: { rut: '99999999-9' }
@@ -98,10 +98,13 @@ describe('getUserByRut', () => {
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith({ message: 'Usuario no encontrado' });
   });
+
 });
 
-// #04
+// #04 Actualizar el usuario
 describe('updateUser', () => {
+
+  // D
   it('should update existing user', () => {
     const req = {
       params: { rut: users[0].rut },
@@ -125,6 +128,7 @@ describe('updateUser', () => {
     expect(users[0].nombre).toBe('Juan Actualizado');
   });
 
+  // Si no existe
   it('should return 404 if user not found', () => {
     const req = {
       params: { rut: '00000000-0' },
@@ -143,8 +147,10 @@ describe('updateUser', () => {
   });
 });
 
-// #05
+// #05 Borrar un usuario 
 describe('deleteUser', () => {
+
+  // No es su cumple
   it('should delete user if not on birthday', () => {
     // Cambiar fechaNacimiento a algo distinto a hoy
     users[0].fechaNacimiento = '1990-01-01';
@@ -163,12 +169,13 @@ describe('deleteUser', () => {
     expect(users.find(u => u.rut === req.params.rut)).toBeUndefined();
   });
 
+  // Es su cumple
   it('should return 400 if user is on birthday', () => {
     const today = new Date().toISOString().slice(5, 10);
     users.push({
       rut: '11111111-1',
       nombre: 'Cumpleañero',
-      fechaNacimiento: `2000-${today}`,
+      fechaNacimiento: `2000-${today}`, // toDay
       cantidadHijos: 0,
       correos: [],
       telefonos: [],
@@ -189,4 +196,5 @@ describe('deleteUser', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({ message: 'No se puede eliminar un usuario en su cumpleaños' });
   });
+
 });
