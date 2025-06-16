@@ -46,11 +46,11 @@ export default function UserList() {
 
 
     return (
-        <div style={{ padding: '1rem' }}>
+        <div>
             <h1>Listado de Usuarios</h1>
             <p>Total de usuarios: {fakeUsers.length}</p>
 
-            <button onClick={() => navigate('/add')} style={{ marginBottom: '1rem' }}>
+            <button onClick={() => navigate('/add')}>
                 Agregar Usuario
             </button>
 
@@ -82,7 +82,6 @@ export default function UserList() {
                                     <button>Editar</button>
                                 </Link>
                                 <button onClick={() => handleDelete(user.rut)}>Eliminar</button>
-
                             </td>
                         </tr>
                     ))}

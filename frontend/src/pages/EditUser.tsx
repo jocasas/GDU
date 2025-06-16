@@ -36,9 +36,9 @@ export default function EditUser() {
   if (!userData) return <p>Cargando...</p>
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <div>
       <h1>Editar Usuario</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <form onSubmit={handleSubmit}>
         <label>
           RUT (no editable):
           <input type="text" value={userData.rut} disabled />

@@ -21,9 +21,9 @@ export default function AddUser() {
     }
 
     return (
-        <div style={{ padding: '1rem' }}>
+        <div>
             <h1>Agregar Usuario</h1>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <form onSubmit={handleSubmit}>
                 <label>
                     RUT:
                     <input type="text" value={rut} onChange={(e) => setRut(e.target.value)} required />
