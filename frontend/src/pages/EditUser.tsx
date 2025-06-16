@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
+import { updateUser } from '../services/userService'
 
 export default function EditUser() {
   const { state } = useLocation()
@@ -20,11 +21,16 @@ export default function EditUser() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Usuario actualizado:', user)
-    alert('Usuario editado (simulado)')
-    navigate('/')
+    try {
+      await updateUser(user.rut, user)
+      alert('Usuario editado correctamente')
+      navigate('/')
+    } catch (error) {
+      console.error('Error al editar usuario:', error)
+      alert('Hubo un error al editar el usuario')
+    }
   }
 
   return (
