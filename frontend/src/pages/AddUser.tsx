@@ -1,24 +1,41 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './form.css'
+import { createUser } from '../services/userService'
 
 export default function AddUser() {
     const navigate = useNavigate()
 
     const [rut, setRut] = useState('')
-    const [name, setName] = useState('')
-    const [birthdate, setBirthdate] = useState('')
-    const [children, setChildren] = useState(0)
-    const [email, setEmail] = useState('')
-    const [phones, setPhones] = useState([''])
-    const [addresses, setAddresses] = useState([''])
+    const [nombre, setName] = useState('')
+    const [fechaNacimiento, setBirthdate] = useState('')
+    const [cantidadHijos, setChildren] = useState(0)
+    const [correos, setEmail] = useState('')
+    const [telefonos, setPhones] = useState([''])
+    const [direcciones, setAddresses] = useState([''])
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
         // Aquí después mandamos a la API
-        console.log({ rut, name, birthdate, children, email, phones, addresses })
-        alert('Usuario agregado (simulado)')
-        navigate('/')
+        const newUser = {
+            rut,
+            nombre,
+            fechaNacimiento,
+            cantidadHijos,
+            correos,
+            telefonos,
+            direcciones
+        };
+
+        try {
+            await createUser(newUser); // tu función que hace el POST a la API
+            alert('Usuario agregado exitosamente');
+            navigate('/');
+        } catch (error) {
+            console.error('Error al agregar usuario:', error);
+            alert('Error al agregar usuario');
+        }
     }
 
     return (
@@ -31,17 +48,17 @@ export default function AddUser() {
                 </label>
                 <label>
                     Nombre:
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                    <input type="text" value={nombre} onChange={(e) => setName(e.target.value)} required />
                 </label>
                 <label>
                     Fecha de nacimiento:
-                    <input type="date" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required />
+                    <input type="date" value={fechaNacimiento} onChange={(e) => setBirthdate(e.target.value)} required />
                 </label>
                 <label>
                     Cantidad de hijos:
                     <input
                         type="number"
-                        value={children}
+                        value={cantidadHijos}
                         onChange={(e) => setChildren(Number(e.target.value))}
                         min={0}
                         required
@@ -49,48 +66,48 @@ export default function AddUser() {
                 </label>
                 <label>
                     Correo electrónico:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="correos" value={correos} onChange={(e) => setEmail(e.target.value)} required />
                 </label>
 
                 <div>
                     <p>Teléfonos:</p>
-                    {phones.map((phone, i) => (
+                    {telefonos.map((phone, i) => (
                         <input
                             key={i}
                             type="text"
                             value={phone}
                             onChange={(e) => {
-                                const newPhones = [...phones]
+                                const newPhones = [...telefonos]
                                 newPhones[i] = e.target.value
                                 setPhones(newPhones)
                             }}
                         />
                     ))}
-                    <button type="button" onClick={() => setPhones([...phones, ''])}>
+                    <button type="button" onClick={() => setPhones([...telefonos, ''])}>
                         + Agregar teléfono
                     </button>
                 </div>
 
                 <div>
                     <p>Direcciones:</p>
-                    {addresses.map((addr, i) => (
+                    {direcciones.map((addr, i) => (
                         <input
                             key={i}
                             type="text"
                             value={addr}
                             onChange={(e) => {
-                                const newAddresses = [...addresses]
+                                const newAddresses = [...direcciones]
                                 newAddresses[i] = e.target.value
                                 setAddresses(newAddresses)
                             }}
                         />
                     ))}
-                    <button type="button" onClick={() => setAddresses([...addresses, ''])}>
+                    <button type="button" onClick={() => setAddresses([...direcciones, ''])}>
                         + Agregar dirección
                     </button>
                 </div>
                 <div className='buttonFormSpace'>
-                <button className='buttonSave' type="submit">Guardar</button>
+                    <button className='buttonSave' type="submit">Guardar</button>
                 </div>
             </form>
         </div>
