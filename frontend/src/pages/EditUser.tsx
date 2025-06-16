@@ -23,8 +23,16 @@ export default function EditUser() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // En los datos como el telefono la estructura es de tipo array, por tanto aqui hacemos trim al array y que no quede una coma y string vacio
+    const cleanedUser = {
+      ...user,
+      telefonos: user.telefonos.filter((t: string) => t.trim() !== ''),
+      direcciones: user.direcciones.filter((d: string) => d.trim() !== ''),
+    }
+
     try {
-      await updateUser(user.rut, user)
+      await updateUser(cleanedUser.rut, cleanedUser)
       alert('Usuario editado correctamente')
       navigate('/')
     } catch (error) {
