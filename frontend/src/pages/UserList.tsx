@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { getUsers } from '../services/userService'
+import { deleteUser, getUsers } from '../services/userService'
 
 interface User {
     rut: string
@@ -21,12 +21,26 @@ export default function UserList() {
         getUsers().then(setUsers);
     }, []);
 
-    const handleDelete = (rut: string) => {
-        const confirmed = confirm("¿Estás seguro de que deseas eliminar este usuario?");
-        if (confirmed) {
-            setUsers((prev) => prev.filter((user) => user.rut !== rut));
+    const handleDelete = async (user: any) => {
+        const today = new Date().toISOString().slice(5, 10) // MM-DD
+        const birthdate = new Date(user.fechaNacimiento).toISOString().slice(5, 10)
+
+        if (today === birthdate) {
+            alert('No se puede eliminar a un usuario que está de cumpleaños hoy.')
+            return
         }
-    };
+
+        if (!confirm(`¿Estás seguro de que deseas eliminar al usuario ${user.nombre}?`)) return
+
+        try {
+            await deleteUser(user.rut)
+            alert('Usuario eliminado correctamente')
+            setUsers((prev) => prev.filter((u) => u.rut !== user.rut))
+        } catch (error) {
+            console.error('Error al eliminar:', error)
+            alert('Error al eliminar usuario')
+        }
+    }
 
 
     return (
@@ -62,10 +76,10 @@ export default function UserList() {
                             <td>{user.telefonos.join(', ')}</td>
                             <td>{user.direcciones.join(', ')}</td>
                             <td>
-                                <Link to={`/edit/${user.rut}`} state={{user}}>
+                                <Link to={`/edit/${user.rut}`} state={{ user }}>
                                     <button>Editar</button>
                                 </Link>
-                                <button onClick={() => handleDelete(user.rut)}>Eliminar</button>
+                                <button onClick={() => handleDelete(user)}>Eliminar</button>
                             </td>
                         </tr>
                     ))}
