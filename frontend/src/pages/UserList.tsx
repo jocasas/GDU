@@ -56,7 +56,7 @@ export default function UserList() {
                         <tr key={user.rut}>
                             <td>{user.rut}</td>
                             <td>{user.nombre}</td>
-                            <td>{user.correos.join(', ')}</td>
+                            <td>{user.correos}</td>
                             <td>{user.fechaNacimiento}</td>
                             <td>{user.cantidadHijos}</td>
                             <td>{user.telefonos.join(', ')}</td>
