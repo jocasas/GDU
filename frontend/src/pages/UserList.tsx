@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 
 interface User {
     rut: string
@@ -34,6 +35,16 @@ const fakeUsers: User[] = [
 export default function UserList() {
     const navigate = useNavigate()
 
+    const [users, setUsers] = useState(fakeUsers);
+
+    const handleDelete = (rut: string) => {
+        const confirmed = confirm("¿Estás seguro de que deseas eliminar este usuario?");
+        if (confirmed) {
+            setUsers((prev) => prev.filter((user) => user.rut !== rut));
+        }
+    };
+
+
     return (
         <div style={{ padding: '1rem' }}>
             <h1>Listado de Usuarios</h1>
@@ -53,10 +64,11 @@ export default function UserList() {
                         <th>Hijos</th>
                         <th>Teléfonos</th>
                         <th>Direcciones</th>
+                        <th>Administrar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {fakeUsers.map((user) => (
+                    {users.map((user) => (
                         <tr key={user.rut}>
                             <td>{user.rut}</td>
                             <td>{user.name}</td>
@@ -65,6 +77,13 @@ export default function UserList() {
                             <td>{user.children}</td>
                             <td>{user.phones.join(', ')}</td>
                             <td>{user.addresses.join(', ')}</td>
+                            <td>
+                                <Link to={`/edit/${user.rut}`}>
+                                    <button>Editar</button>
+                                </Link>
+                                <button onClick={() => handleDelete(user.rut)}>Eliminar</button>
+
+                            </td>
                         </tr>
                     ))}
                 </tbody>
