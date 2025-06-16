@@ -105,8 +105,9 @@ export default function EditUser() {
             + Agregar dirección
           </button>
         </div>
-
-        <button type="submit">Guardar cambios</button>
+        <div className='buttonFormSpace'>
+              <button className='buttonEdit' type="submit">Guardar cambios</button>
+        </div>
       </form>
     </div>
   )

@@ -49,11 +49,11 @@ export default function UserList() {
         <div>
             <h1>Listado de Usuarios</h1>
             <p>Total de usuarios: {fakeUsers.length}</p>
-
-            <button onClick={() => navigate('/add')}>
+            <div className='buttonAddSpace'>
+            <button className='buttonAdd' onClick={() => navigate('/add')}>
                 Agregar Usuario
             </button>
-
+            </div>
             <table border={1} cellPadding={8} cellSpacing={0}>
                 <thead>
                     <tr>

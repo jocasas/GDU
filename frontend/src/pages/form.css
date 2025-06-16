@@ -1,0 +1,23 @@
+.buttonFormSpace{
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    justify-content: center;
+    text-align: center;
+}
+
+.buttonAddSpace{
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+.buttonAdd{
+    background-color: rgb(54, 187, 54);
+}
+
+.buttonSave{
+    background-color: rgb(54, 187, 54);
+}
+
+.buttonEdit{
+    background-color: rgb(245, 245, 30);
+}

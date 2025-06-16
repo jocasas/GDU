@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './form.css'
 
 export default function AddUser() {
     const navigate = useNavigate()
@@ -88,8 +89,9 @@ export default function AddUser() {
                         + Agregar dirección
                     </button>
                 </div>
-
-                <button type="submit">Guardar</button>
+                <div className='buttonFormSpace'>
+                <button className='buttonSave' type="submit">Guardar</button>
+                </div>
             </form>
         </div>
     )
