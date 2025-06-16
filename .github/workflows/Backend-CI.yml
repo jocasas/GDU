@@ -3,12 +3,9 @@ name: Backend CI
 on:
   push:
     branches:
-      - "feature/**"
-      - "fix/**"
-      - "hotfix/**"
-  pull_request:
-    branches:
-      - "develop"
+      - "feature/backend-*"
+      - "fix/backend-*"
+      - "hotfix/backend-*"
 
 jobs:
   build:
