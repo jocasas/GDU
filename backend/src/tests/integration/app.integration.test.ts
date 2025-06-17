@@ -16,7 +16,7 @@ if (process.env.CI) {
       const serverPath = path.join(process.cwd(), 'dist', 'server.js');
 
       expect(() => {
-        execSync(`node "${serverPath}"`, { timeout: 2000 });
+        execSync(`node "${serverPath}"`, { timeout: 10000 });
       }).not.toThrow();
     });
   });

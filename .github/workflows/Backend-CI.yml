@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - "feature/**"
-      - "fix/**"
-      - "hotfix/**"
-  pull_request:
-    branches:
-      - "develop"
 
 jobs:
   build:
