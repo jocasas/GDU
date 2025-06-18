@@ -51,35 +51,23 @@ export default function EditUser() {
         </label>
         <label>
           Nombre:
-          <input
-            type="text"
-            value={user.nombre}
-            onChange={(e) => handleChange('nombre', e.target.value)}
-          />
+          <input name="nombre" type="text" value={user.nombre} onChange={(e) => handleChange('nombre', e.target.value)} />
+
         </label>
         <label>
           Fecha de nacimiento:
-          <input
-            type="date"
-            value={user.fechaNacimiento}
-            onChange={(e) => handleChange('fechaNacimiento', e.target.value)}
-          />
+          <input name="fechaNacimiento" type="date" value={user.fechaNacimiento} onChange={(e) => handleChange('fechaNacimiento', e.target.value)} />
+
         </label>
         <label>
           Cantidad de hijos:
-          <input
-            type="number"
-            value={user.cantidadHijos}
-            onChange={(e) => handleChange('cantidadHijos', Number(e.target.value))}
-          />
+          <input name="cantidadHijos" type="number" value={user.cantidadHijos} onChange={(e) => handleChange('cantidadHijos', Number(e.target.value))} />
+
         </label>
         <label>
           Correo electrónico:
-          <input
-            type="email"
-            value={user.correos}
-            onChange={(e) => handleChange('correos', e.target.value)}
-          />
+          <input name="correos" type="correos" value={user.correos} onChange={(e) => handleChange('correos', e.target.value)} />
+
         </label>
 
         <div>

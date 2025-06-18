@@ -44,29 +44,24 @@ export default function AddUser() {
             <form onSubmit={handleSubmit}>
                 <label>
                     RUT:
-                    <input type="text" value={rut} onChange={(e) => setRut(e.target.value)} required />
+                    <input name="rut" type="text" value={rut} onChange={(e) => setRut(e.target.value)} required />
                 </label>
                 <label>
                     Nombre:
-                    <input type="text" value={nombre} onChange={(e) => setName(e.target.value)} required />
+                    <input name="nombre" type="text" value={nombre} onChange={(e) => setName(e.target.value)} required />
                 </label>
                 <label>
                     Fecha de nacimiento:
-                    <input type="date" value={fechaNacimiento} onChange={(e) => setBirthdate(e.target.value)} required />
+                    <input name="fechaNacimiento" type="date" value={fechaNacimiento} onChange={(e) => setBirthdate(e.target.value)} required />
                 </label>
                 <label>
                     Cantidad de hijos:
-                    <input
-                        type="number"
-                        value={cantidadHijos}
-                        onChange={(e) => setChildren(Number(e.target.value))}
-                        min={0}
-                        required
-                    />
+                    <input name="cantidadHijos" type="number" value={cantidadHijos} onChange={(e) => setChildren(Number(e.target.value))} min={0} required />
+
                 </label>
                 <label>
                     Correo electrónico:
-                    <input type="correos" value={correos} onChange={(e) => setEmail(e.target.value)} required />
+                    <input name="correos" type="correos" value={correos} onChange={(e) => setEmail(e.target.value)} required />
                 </label>
 
                 <div>
