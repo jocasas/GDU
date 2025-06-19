@@ -29,12 +29,16 @@ export default function AddUser() {
         };
 
         try {
-            await createUser(newUser); // tu función que hace el POST a la API
+            await createUser(newUser);
             alert('Usuario agregado exitosamente');
             navigate('/');
-        } catch (error) {
+        } catch (error: any) {
+            if (error.response && error.response.status === 400) {
+                alert(error.response.data.message || 'El RUT ya está registrado');
+            } else {
+                alert('Error al agregar usuario');
+            }
             console.error('Error al agregar usuario:', error);
-            alert('Error al agregar usuario');
         }
     }
 
@@ -56,7 +60,7 @@ export default function AddUser() {
                 </label>
                 <label>
                     Cantidad de hijos:
-                    <input name="cantidadHijos" type="number" value={cantidadHijos} onChange={(e) => setChildren(Number(e.target.value))} min={0} required />
+                    <input name="cantidadHijos" type="text" value={cantidadHijos} onChange={(e) => setChildren(Number(e.target.value))} min={0} required />
 
                 </label>
                 <label>
