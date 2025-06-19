@@ -69,6 +69,7 @@ export default function AddUser() {
                     {telefonos.map((phone, i) => (
                         <input
                             key={i}
+                            name={`telefono-${i}`}
                             type="text"
                             value={phone}
                             onChange={(e) => {
@@ -88,6 +89,7 @@ export default function AddUser() {
                     {direcciones.map((addr, i) => (
                         <input
                             key={i}
+                            name={`direccion-${i}`}
                             type="text"
                             value={addr}
                             onChange={(e) => {

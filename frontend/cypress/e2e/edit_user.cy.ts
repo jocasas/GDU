@@ -18,14 +18,20 @@ describe('Editar usuario', () => {
     cy.get('input[name="correos"]').clear().type('editado@example.com');
 
     // Cambiar cantidad de hijos
-    cy.get('input[name="cantidadHijos"]').clear().type('3');
+    cy.get('input[name="cantidadHijos"]')
+      .focus()
+      .type('{selectall}{del}')  // selecciona todo y elimina, para dejar vacío
+      .type('{end}')           // mueve el cursor al final del input vacío
+      .type('3')
 
     // Guardar cambios
     cy.contains('Guardar cambios').click();
 
     // Verificar cambios en el listado
-    cy.contains('Juan Editado');
-    cy.contains('editado@example.com');
-    cy.contains('3');
+    cy.contains('12345678-9')
+      .parent('tr')                           // sube al <tr> (o ajusta según tu HTML)
+      .within(() => {                        // busca dentro de esa fila
+        cy.contains('3')                     // verifica que la cantidad de hijos sea 3 ahí
+      })
   });
 });

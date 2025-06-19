@@ -14,10 +14,10 @@ describe('Flujo de agregar usuario', () => {
 
         // Teléfonos y Direcciones
         cy.contains('+ Agregar teléfono').click();
-        cy.get('input[type="text"]').eq(0).type('987654321');
+        cy.get('input[name="telefono-0"]').type('987654321');
 
         cy.contains('+ Agregar dirección').click();
-        cy.get('input[type="text"]').eq(1).type('Calle Falsa 123');
+        cy.get('input[name="direccion-0"]').type('Calle Falsa 123');
 
         // Enviar formulario
         cy.get('button[type="submit"]').click();

@@ -61,7 +61,7 @@ export default function EditUser() {
         </label>
         <label>
           Cantidad de hijos:
-          <input name="cantidadHijos" type="number" value={user.cantidadHijos} onChange={(e) => handleChange('cantidadHijos', Number(e.target.value))} />
+          <input min={0} name="cantidadHijos" type="text" value={user.cantidadHijos} onChange={(e) => handleChange('cantidadHijos', Number(e.target.value))} />
 
         </label>
         <label>
@@ -75,6 +75,7 @@ export default function EditUser() {
           {user.telefonos.map((phone: string, i: number) => (
             <input
               key={i}
+              name={`telefono-${i}`}
               type="text"
               value={phone}
               onChange={(e) => {
@@ -97,6 +98,7 @@ export default function EditUser() {
           {user.direcciones.map((addr: string, i: number) => (
             <input
               key={i}
+              name={`direccion-${i}`}
               type="text"
               value={addr}
               onChange={(e) => {
