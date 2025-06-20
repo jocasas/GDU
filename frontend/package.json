@@ -9,8 +9,10 @@
     "preview": "vite preview",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test": "cypress run",
-    "test:gui": "cypress open"
+    "test:cypress": "cypress run",
+    "test:gui": "cypress open",
+    "test:cypress:gui": "cypress open",
+    "open:cypress": "cypress open"
   },
   "dependencies": {
     "react": "^19.1.0",
