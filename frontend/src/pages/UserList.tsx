@@ -68,18 +68,18 @@ export default function UserList() {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user.rut}>
-                            <td>{user.rut}</td>
-                            <td>{user.nombre}</td>
-                            <td>{user.correos}</td>
-                            <td>{user.fechaNacimiento}</td>
-                            <td>{user.cantidadHijos}</td>
-                            <td>{user.telefonos.join(', ')}</td>
-                            <td>{user.direcciones.join(', ')}</td>
+                            <td data-testid={`rut-${user.rut}`}>{user.rut}</td>
+                            <td data-testid={`nombre-${user.rut}`}>{user.nombre}</td>
+                            <td data-testid={`correos-${user.rut}`}>{user.correos}</td>
+                            <td data-testid={`fechaNacimiento-${user.rut}`}>{user.fechaNacimiento}</td>
+                            <td data-testid={`cantidadHijos-${user.rut}`}>{user.cantidadHijos}</td>
+                            <td data-testid={`telefonos-${user.rut}`}>{user.telefonos.join(', ')}</td>
+                            <td data-testid={`direcciones-${user.rut}`}>{user.direcciones.join(', ')}</td>
                             <td>
                                 <Link to={`/edit/${user.rut}`} state={{ user }}>
-                                    <button>Editar</button>
+                                    <button data-testid={`editar-${user.rut}`}>Editar</button>
                                 </Link>
-                                <button onClick={() => handleDelete(user)}>Eliminar</button>
+                                <button data-testid={`eliminar-${user.rut}`} onClick={() => handleDelete(user)}>Eliminar</button>
                             </td>
                         </tr>
                     ))}
