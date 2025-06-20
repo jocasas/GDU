@@ -1,0 +1,48 @@
+{
+  "name": "gdu",
+  "version": "1.0.0",
+  "description": "Este proyecto es una aplicación de gestión de usuarios construida con un monorepo que contiene componentes backend y frontend",
+  "main": "index.js",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+   
+    "dev": "concurrently -k -n backend,frontend -c blue,green \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "dev:backend": "npm run dev --workspace backend",
+ 
+    "test:backend": "npm run test --workspace backend",
+    "test:backend:integration":"npm run test:integration --workspace backend",
+    "test:backend:unit":"npm run test:unit --workspace backend",
+
+    "build:frontend": "npm run build --workspace frontend",
+    "preview:frontend": "npm run preview --workspace frontend",
+
+    "test:frontend": "start-server-and-test dev:backend http://localhost:3000 test:frontend:run",
+    "test:frontend:run": "start-server-and-test dev:frontend http://localhost:5173 test:cypress:headless",
+    "test:cypress:headless": "npm run test:cypress --workspace frontend",
+
+    "test:cypress:gui": "concurrently -k -n backend,frontend,wait -c blue,green,gray \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run wait-and-open\"",
+    "wait-and-open": "wait-on http://localhost:3000 http://localhost:5173 && npm run open:cypress --workspace frontend",
+    "open:cypress": "cypress open",
+
+
+    "test": "concurrently \"npm run test:backend\" \"npm run test:frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jocasas/GDU.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jocasas/GDU/issues"
+  },
+  "homepage": "https://github.com/jocasas/GDU#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
