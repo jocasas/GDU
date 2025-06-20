@@ -29,16 +29,12 @@ export default function AddUser() {
         };
 
         try {
-            await createUser(newUser);
+            await createUser(newUser); // tu función que hace el POST a la API
             alert('Usuario agregado exitosamente');
             navigate('/');
-        } catch (error: any) {
-            if (error.response && error.response.status === 400) {
-                alert(error.response.data.message || 'El RUT ya está registrado');
-            } else {
-                alert('Error al agregar usuario');
-            }
+        } catch (error) {
             console.error('Error al agregar usuario:', error);
+            alert('Error al agregar usuario');
         }
     }
 
@@ -48,24 +44,29 @@ export default function AddUser() {
             <form onSubmit={handleSubmit}>
                 <label>
                     RUT:
-                    <input name="rut" type="text" value={rut} onChange={(e) => setRut(e.target.value)} required />
+                    <input type="text" value={rut} onChange={(e) => setRut(e.target.value)} required />
                 </label>
                 <label>
                     Nombre:
-                    <input name="nombre" type="text" value={nombre} onChange={(e) => setName(e.target.value)} required />
+                    <input type="text" value={nombre} onChange={(e) => setName(e.target.value)} required />
                 </label>
                 <label>
                     Fecha de nacimiento:
-                    <input name="fechaNacimiento" type="date" value={fechaNacimiento} onChange={(e) => setBirthdate(e.target.value)} required />
+                    <input type="date" value={fechaNacimiento} onChange={(e) => setBirthdate(e.target.value)} required />
                 </label>
                 <label>
                     Cantidad de hijos:
-                    <input name="cantidadHijos" type="text" value={cantidadHijos} onChange={(e) => setChildren(Number(e.target.value))} min={0} required />
-
+                    <input
+                        type="number"
+                        value={cantidadHijos}
+                        onChange={(e) => setChildren(Number(e.target.value))}
+                        min={0}
+                        required
+                    />
                 </label>
                 <label>
                     Correo electrónico:
-                    <input name="correos" type="correos" value={correos} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="correos" value={correos} onChange={(e) => setEmail(e.target.value)} required />
                 </label>
 
                 <div>
@@ -73,7 +74,6 @@ export default function AddUser() {
                     {telefonos.map((phone, i) => (
                         <input
                             key={i}
-                            name={`telefono-${i}`}
                             type="text"
                             value={phone}
                             onChange={(e) => {
@@ -93,7 +93,6 @@ export default function AddUser() {
                     {direcciones.map((addr, i) => (
                         <input
                             key={i}
-                            name={`direccion-${i}`}
                             type="text"
                             value={addr}
                             onChange={(e) => {

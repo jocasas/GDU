@@ -51,23 +51,35 @@ export default function EditUser() {
         </label>
         <label>
           Nombre:
-          <input name="nombre" type="text" value={user.nombre} onChange={(e) => handleChange('nombre', e.target.value)} />
-
+          <input
+            type="text"
+            value={user.nombre}
+            onChange={(e) => handleChange('nombre', e.target.value)}
+          />
         </label>
         <label>
           Fecha de nacimiento:
-          <input name="fechaNacimiento" type="date" value={user.fechaNacimiento} onChange={(e) => handleChange('fechaNacimiento', e.target.value)} />
-
+          <input
+            type="date"
+            value={user.fechaNacimiento}
+            onChange={(e) => handleChange('fechaNacimiento', e.target.value)}
+          />
         </label>
         <label>
           Cantidad de hijos:
-          <input min={0} name="cantidadHijos" type="text" value={user.cantidadHijos} onChange={(e) => handleChange('cantidadHijos', Number(e.target.value))} />
-
+          <input
+            type="number"
+            value={user.cantidadHijos}
+            onChange={(e) => handleChange('cantidadHijos', Number(e.target.value))}
+          />
         </label>
         <label>
           Correo electrónico:
-          <input name="correos" type="correos" value={user.correos} onChange={(e) => handleChange('correos', e.target.value)} />
-
+          <input
+            type="email"
+            value={user.correos}
+            onChange={(e) => handleChange('correos', e.target.value)}
+          />
         </label>
 
         <div>
@@ -75,7 +87,6 @@ export default function EditUser() {
           {user.telefonos.map((phone: string, i: number) => (
             <input
               key={i}
-              name={`telefono-${i}`}
               type="text"
               value={phone}
               onChange={(e) => {
@@ -98,7 +109,6 @@ export default function EditUser() {
           {user.direcciones.map((addr: string, i: number) => (
             <input
               key={i}
-              name={`direccion-${i}`}
               type="text"
               value={addr}
               onChange={(e) => {
