@@ -1,0 +1,32 @@
+{
+  "name": "gdu",
+  "version": "1.0.0",
+  "description": "Este proyecto es una aplicación de gestión de usuarios construida con un monorepo que contiene componentes backend y frontend",
+  "main": "index.js",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "npm --workspace frontend run dev",
+    "dev:backend": "npm --workspace backend run dev",
+    "test": "concurrently \"npm run test:backend\" \"npm run test:frontend\"",
+    "test:backend": "npm --workspace backend run test",
+    "test:frontend": "npm --workspace frontend run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jocasas/GDU.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jocasas/GDU/issues"
+  },
+  "homepage": "https://github.com/jocasas/GDU#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
