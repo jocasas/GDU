@@ -1,4 +1,4 @@
-name: Backend-Frontend CI
+name: Full Stack CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  backend-tests:
+  backend-build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -27,17 +27,12 @@ jobs:
       - name: Build backend
         run: npm run build
 
-      - name: Run unit tests
-        run: npm run test:unit
-
-      - name: Run integration tests
-        run: npm run test:integration
-
-  frontend-tests:
+  backend-unit-tests:
+    needs: backend-build
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: . # Desde raíz para ejecutar el script monorepo
+        working-directory: backend
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -47,8 +42,49 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install all dependencies (monorepo)
+      - name: Install backend dependencies
         run: npm ci
 
-      - name: Run Cypress tests (headless)
+      - name: Run unit tests
+        run: npm run test:unit
+
+  backend-integration-tests:
+    needs: backend-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        run: npm ci
+
+      - name: Run integration tests
+        run: npm run test:integration
+
+  frontend-e2e-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install monorepo dependencies
+        run: npm ci
+
+      - name: Run Cypress E2E (headless)
         run: npm run test:frontend
