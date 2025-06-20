@@ -83,12 +83,13 @@ jobs:
         with:
           node-version: 20.17.0
 
-      - name: Remove package-lock and node_modules (fix Rollup bug)
+      - name: Clean lockfile and modules
         run: |
-          rm -rf package-lock.json node_modules
+          rm -rf node_modules
+          rm -f package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci && npm rebuild
 
       - name: Build frontend
         run: npm run build
