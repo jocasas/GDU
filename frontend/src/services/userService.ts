@@ -16,7 +16,14 @@ export const createUser = async (user: any) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   });
-  return response.json();
+
+
+  if (!response.ok) {
+    const msg = await response.text();
+    throw new Error(`Error al crear usuario: ${response.status} - ${msg}`);
+  }
+
+  return await response.json();
 };
 
 export const updateUser = async (rut: string, user: any) => {
