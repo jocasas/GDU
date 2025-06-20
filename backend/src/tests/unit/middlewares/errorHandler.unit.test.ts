@@ -6,14 +6,17 @@ describe('Middleware errorHandler', () => {
   let next: any;
 
   beforeEach(() => {
-    req = {}; // no se usa en este middleware
+    req = {}; // No se utiliza en este middleware
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
-    next = jest.fn(); // tampoco se usa en este middleware
+    next = jest.fn(); // Tampoco se utiliza aquí
   });
 
+  // #01 Manejo de error personalizado
+  // Parámetros: error con `status` y `message` definidos
+  // Descripción: Debe devolver el mismo código de estado y mensaje que vienen desde el error
   it('devuelve el status y mensaje del error si están definidos', () => {
     const error: AppError = {
       name: 'CustomError',
@@ -27,6 +30,9 @@ describe('Middleware errorHandler', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Algo salió mal' });
   });
 
+  // #02 Manejo de error genérico
+  // Parámetros: error sin `status` ni mensaje definido
+  // Descripción: Debe devolver status 500 y mensaje por defecto "Internal Server Error"
   it('devuelve 500 y mensaje por defecto si no se especifica status ni mensaje', () => {
     const error: AppError = {
       name: 'UnknownError',

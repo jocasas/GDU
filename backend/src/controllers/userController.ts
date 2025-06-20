@@ -2,7 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { users, User } from '../models/user';
 
 
-//#01 Read all items
+// #01 Obtener todos los usuarios
+// Parámetros: ninguno
+// Descripción: Devuelve un array con todos los usuarios almacenados en memoria.
 export const getUsers = (req: Request, res: Response, next: NextFunction) => {
   try {
     res.json(users);
@@ -12,7 +14,9 @@ export const getUsers = (req: Request, res: Response, next: NextFunction) => {
 };
 
 
-//#02 Crear usuario
+// #02 Crear nuevo usuario
+// Parámetros: objeto User en req.body
+// Descripción: Agrega un usuario nuevo si el RUT no está registrado. Si el RUT existe, responde con error 400.
 export const createUser = (req: Request, res: Response, next: NextFunction) => {
   try {
     const newUser: User = req.body;
@@ -31,7 +35,10 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-//#03 Obtener un usuario por RUT
+
+// #03 Obtener usuario por RUT
+// Parámetros: rut en req.params.rut
+// Descripción: Busca y devuelve un usuario específico según el RUT. Si no existe, responde con error 404.
 export const getUserByRut = (req: Request, res: Response, next: NextFunction) => {
   try {
     const rut = req.params.rut;
@@ -48,7 +55,10 @@ export const getUserByRut = (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-//#04 Actualizar usuario (excepto RUT)
+
+// #04 Actualizar usuario (sin modificar RUT)
+// Parámetros: rut en req.params.rut, datos actualizados en req.body
+// Descripción: Actualiza los campos del usuario identificado por RUT. Si no existe, error 404.
 export const updateUser = (req: Request, res: Response, next: NextFunction) => {
   try {
     const rut = req.params.rut;
@@ -77,7 +87,10 @@ export const updateUser = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-//#05 Eliminar usuario (excepto si está de cumpleaños hoy)
+
+// #05 Eliminar usuario (excepto si está de cumpleaños hoy)
+// Parámetros: rut en req.params.rut
+// Descripción: Elimina el usuario identificado por RUT salvo que su fecha de nacimiento coincida con el día actual (mes y día). Si no existe, error 404.
 export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
   try {
     const rut = req.params.rut;
