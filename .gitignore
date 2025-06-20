@@ -1,8 +1,4 @@
-# ROOT
 Documentacion/*
-/node_modules/
-./node_modules/**
-
 
 # backend ignore
 /backend/node_modules/
