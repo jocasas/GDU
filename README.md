@@ -22,8 +22,8 @@ Monorepo con workspaces para compartir dependencias y ejecutar desde la raíz.
 
 ### Requisitos previos
 
-* Node.js (versión 18 o superior)
-* npm
+* Node.js (versión 20 o superior)
+* npm 9 o superior
 
 ### Instalación
 
@@ -37,73 +37,15 @@ npm install
 
 Desde la raíz del proyecto:
 
-```bash
-npm run dev
-```
+| Comando                            | Descripción                                            |
+| ---------------------------------- | ------------------------------------------------------ |
+| `npm run dev`                      | Corre backend y frontend en modo desarrollo simultáneo |
+| `npm run test:backend`             | Ejecuta todos los tests del backend                    |
+| `npm run test:frontend`            | Levanta las instancias y Corre los tests frontend E2E (Cypress) Headless        |
+| `npm run test:frontend:gui`            | Levanta las instancias y  Corre los tests frontend E2E (Cypress) con GUI        |
+| `npm run test:backend:integration` | Ejecuta solo tests de integración del backend          |
+| `npm run test:backend:unit`        | Ejecuta solo tests unitarios del backend               |
+| `npm run dev:backend`              | Corre solo backend en modo desarrollo                  |
+| `npm run dev:frontend`             | Corre solo frontend en modo desarrollo                 |
+| `npm run build:frontend`           | Construye la aplicación frontend para producción       |
 
-Esto levanta:
-
-* Frontend: [http://localhost:5173](http://localhost:5173)
-* Backend (API): [http://localhost:3000](http://localhost:3000)
-
-> Se pueden ejecutar por separado de querer hacerlo
-
-```bash
-npm run dev:frontend
-npm run dev:backend
-```
-
-#### Correr el proyecto de manera manual
-
-Puedes correrlo entrando a cada carpeta de los componentes y correr lo siguiente :
-
-```bash
-npm run dev
-```
-
-### Ejecutar Pruebas con los Scripts principales
-
-Ejecutar todas las pruebas (frontend + backend) desde la raíz:
-
-Desde la raíz del proyecto:
-
-```bash
-npm test
-```
-
-> Se pueden Ejecutar pruebas de manera individual tambien:
-
-Backend
-
-```bash
-npm run test:backend
-```
-
-Frontend
-
-```bash
-npm run test:frontend
-```
-
-#### Ejecutar pruebas en caso de querer de manera manual
-
-Backend
-
-```bash
-cd /backend && npm run test
-```
-
-Frontend
-
-```bash
-# Debes correr ambos componentes para hacer las pruebas del frontend pues consume la api por tanto puedes hacer lo siguiente :
-
-# En una primera terminal (terminal 1)
-cd /backend && npm run dev
-
-# En una terminal o proceso aparte correr (terminal 2)
-cd /frontend && npm run dev
-
-# En una ultima terminal Finalmente para ver la interfaz grafica (terminal 3)
-cd /frontend && npx cypress open
-```
