@@ -83,10 +83,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Clean cache (fix for Rollup native module bug)
+      - name: Remove package-lock and node_modules (fix Rollup bug)
         run: |
-          rm -rf node_modules package-lock.json
-          npm install
+          rm -rf package-lock.json node_modules
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Build frontend
         run: npm run build
