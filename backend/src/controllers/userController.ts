@@ -39,6 +39,7 @@ export const getUserByRut = (req: Request, res: Response, next: NextFunction) =>
 
     if (!user) {
       res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
     }
 
     res.json(user);
@@ -55,6 +56,7 @@ export const updateUser = (req: Request, res: Response, next: NextFunction) => {
 
     if (userIndex === -1) {
       res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
     }
 
     const { nombre, fechaNacimiento, cantidadHijos, correos, telefonos, direcciones } = req.body;
@@ -83,6 +85,7 @@ export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
 
     if (userIndex === -1) {
       res.status(404).json({ message: 'Usuario no encontrado' });
+      return;
     }
 
     const today = new Date().toISOString().slice(5, 10); // MM-DD
@@ -90,6 +93,7 @@ export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
 
     if (userBirthDate === today) {
       res.status(400).json({ message: 'No se puede eliminar un usuario en su cumpleaños' });
+      return;
     }
 
     const deletedUser = users.splice(userIndex, 1)[0];
