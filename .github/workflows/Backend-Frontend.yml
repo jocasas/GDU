@@ -98,22 +98,27 @@ jobs:
         run: npm run build
 
   frontend-e2e-tests:
-    needs: frontend-build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: .
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      needs: frontend-build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: 20.17.0
 
-      - name: Install monorepo dependencies
-        run: npm ci
+        - name: Clean lockfile and modules
+          run: |
+            rm -rf node_modules
+            rm -f package-lock.json
 
-      - name: Run Cypress tests (headless)
-        run: npm run test:frontend
+        - name: Install dependencies
+          run: npm install --legacy-peer-deps
+
+        - name: Patch missing native rollup dependency
+          run: npm install @rollup/rollup-linux-x64-gnu --ignore-scripts --no-save
+
+        - name: Run Cypress tests (headless)
+          run: npm run test:frontend
